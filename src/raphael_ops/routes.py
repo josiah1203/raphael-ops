@@ -27,3 +27,12 @@ def backup(body: dict | None = None) -> dict:
 @router.get("/verify-integrity")
 def verify_integrity() -> dict:
     return {"status": "ok", "chain_valid": True, "checked_at": datetime.now(timezone.utc).isoformat()}
+
+
+@router.post("/replay")
+def replay(body: dict | None = None) -> dict:
+    return {
+        "status": "replayed",
+        "events": len((body or {}).get("events", [])),
+        "replayed_at": datetime.now(timezone.utc).isoformat(),
+    }
